@@ -1,5 +1,5 @@
 <template>
-  <charts 
+  <charts
   
   />
 </template>
