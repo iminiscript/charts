@@ -4,21 +4,21 @@
         <div class="block">
           <div 
             class="blockItem item-5" 
-            :style="{'height': performCalcProp + '%'}"
+            :style="{'height': performance_bonus_prop + '%'}"
             :class="{'checked' :  performCalc}"
             >
           </div> 
 
           <div 
             class="blockItem item-4" 
-            :style="{'height': performCalcProp + '%'}"
+            :style="{'height': target_bonus_prop + '%'}"
             :class="{'checked' :  test }"
             >
           </div> 
           
            <div
              class="blockItem item-3" 
-             :style="{'height': bonusCalcProp + '%'}"
+             :style="{'height': sign_in_bonus_prop + '%'}"
              :class="{'checked' : testBonus }"
              >
           
@@ -26,13 +26,13 @@
             </div>
            <div 
             class="blockItem item-2" 
-            :style="{'height': baseCalcProp + '%'}"
+            :style="{'height': equity_prop + '%'}"
             :class="{'checked' : baseCalc}"
             >
           
           </div>
           <div 
-            class="blockItem item-1"  :style="{'height': salayCalcProp + '%'}"
+            class="blockItem item-1"  :style="{'height': base_salary_prop + '%'}"
             :class="{'checked' : baseSalary}"
             >
             
@@ -48,11 +48,11 @@ export default {
     name: 'SingleChart',
     props: {
         id: String,
-        salayCalcProp: String,
-        baseCalcProp: String,
-        extraCalcProp: String,
-        performCalcProp: String,
-        bonusCalcProp: String,
+        base_salary_prop: String,
+        equity_prop: String,
+        target_bonus_prop: String,
+        performance_bonus_prop: String,
+        sign_in_bonus_prop: String,
     },
 
     data() {

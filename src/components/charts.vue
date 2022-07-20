@@ -2,7 +2,7 @@
   <div class="chartColumns">
     <div class="chartColumnsItem chartColumnsOne">
       <div class="userDrop">
-        <div>Selected: {{ selected }}x : Money {{ userSelect }}</div>
+        <div>Selected: {{ selected }}x : Money {{ userSelectEquity }}</div>
 
         <select v-model="selected">
           <option disabled value="">Please select one</option>
@@ -21,15 +21,17 @@
             :class="{'checked': Benefits }"
             >
             <span class="userItemBtn userItemBtn--5"></span>
-            Benefits 
+            Benefits  <br/>
+            {{ performance_amount }}
           </div>
 
           <div class="userItem" 
             @click="toggleTestNew()"
             :class="{'checked': TargetBonus }"
             >
-               <span class="userItemBtn userItemBtn--4"></span>
-            Target Bonus  
+              <span class="userItemBtn userItemBtn--4"></span>
+            Target Bonus  <br/>
+            {{ extraCalcDisplay }}
           </div>
 
           <div class="userItem" 
@@ -37,7 +39,8 @@
             :class="{'checked': SingInBonus }"
             >
                <span class="userItemBtn userItemBtn--3"></span>
-            Sign-on Bonus
+            Sign-on Bonus <br/>
+            {{ bonus_amount }}
           </div>
 
 
@@ -46,7 +49,8 @@
             :class="{'checked': Equity }"
             >
                <span class="userItemBtn userItemBtn--2"></span>
-            Equity 
+            Equity <br/>
+            {{ userSelectEquityDisplay}}
           </div>
 
           <div class="userItem" 
@@ -54,7 +58,8 @@
             :class="{'checked': BaseSalary }"
             >
                <span class="userItemBtn userItemBtn--1"></span>
-            Base Salary
+            Base Salary <br/>
+            {{ base_salary_amount }}
           </div>
         </div>
       </div> 
@@ -64,11 +69,11 @@
        
       <div class="singleChart">
         <singleChart 
-        :baseCalcProp = userSelect
-        :salayCalcProp = salaryCalc
-        :bonusCalcProp = bonusCalc
-        :extraCalcProp="extraCalc"
-        :performCalcProp="performCalc"
+        :equity_prop = userSelectEquity
+        :base_salary_prop = salaryCalc
+        :sign_in_bonus_prop = signInBonus
+        :target_bonus_prop="extraCalc"
+        :performance_bonus_prop="performCalc"
         v-bind="propsToPass"
         
         >
@@ -76,29 +81,29 @@
       </singleChart>
 
       <singleChart 
-        :baseCalcProp = userSelect
-        :salayCalcProp = salaryHike
-        :extraCalcProp="extraCalc"
-        :performCalcProp="performCalc"
+        :equity_prop = userSelectEquity
+        :base_salary_prop = salaryHike
+        :target_bonus_prop="extraCalc"
+        :performance_bonus_prop="performCalc"
         
         >
       </singleChart>
 
       <singleChart 
-        :baseCalcProp = userSelect
-        :salayCalcProp = salaryHikeYear
-        :extraCalcProp="extraCalc"
-        :performCalcProp="performCalc"
+        :equity_prop = userSelectEquity
+        :base_salary_prop = salaryHikeYear
+        :target_bonus_prop="extraCalc"
+        :performance_bonus_prop="performCalc"
       
         
         >
       </singleChart>
 
       <singleChart 
-        :baseCalcProp = userSelect
-        :salayCalcProp = salaryHikeYearFinal
-        :extraCalcProp="extraCalc"
-        :performCalcProp="performCalc"
+        :equity_prop = userSelectEquity
+        :base_salary_prop = salaryHikeYearFinal
+        :target_bonus_prop="extraCalc"
+        :performance_bonus_prop="performCalc"
       
         
         >
@@ -130,12 +135,12 @@ export default {
   },
   data() {
     return {
-      salry_amount: 1000,
+      base_salary_amount: 1000,
       base_amount: 600,
-      bonus_amount: 1000,
-      extra_amount: 1000,
+      bonus_amount: 100,
+      extra_amount: 300,
       performance_amount: 200,
-      total: 3800,
+      total: 2200,
       salaryIncome: true,
       basicIncome: true,
       extraIncome: true,
@@ -150,12 +155,8 @@ export default {
   },
   computed: {
 
-    // counter() {
-    //   return this.$store.state.counter;
-    // },
-
     salaryCalc() {
-        const salary = (this.salry_amount / this.total) * 100;
+        const salary = (this.base_salary_amount / this.total) * 100;
         const salaryFix = ( salary * 500 ) / 100
         return salaryFix;
     },
@@ -189,6 +190,11 @@ export default {
       const extraFix = ( extra * 500 ) / 100;
       return extraFix;
     },
+    extraCalcDisplay() {
+      const extraDisplay = this.extraCalc.toFixed();
+      return extraDisplay;
+  
+    },
     extraUser(){
       return this.extra_amount / 100
     },
@@ -197,20 +203,20 @@ export default {
       const perfFix = ( perf * 500 ) / 100;
       return perfFix;
     },
-    bonusCalc() {
+    signInBonus() {
       const bonus = (this.bonus_amount / this.total) * 100;
       const bonusFix = ( bonus * 500 ) / 100;
       return bonusFix;
     },
 
-    userSelect() {
+    userSelectEquity() {
       const user =  (this.base_amount * this.selected ) / 100;
       const userFix = ( user * 500 ) / 100;
       return userFix;
 
     },
 
-    userSelectDisplay() {
+    userSelectEquityDisplay() {
       return ( this.base_amount * this.selected ) 
     },
 
