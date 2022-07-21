@@ -1,4 +1,4 @@
-# fresh-app
+# miniScript VueJS Learning
 
 ## Project setup
 ```
