@@ -1,7 +1,8 @@
 <template>
   <TheHeader headerTitle="VUE JS Learning" />
-  <charts />
-  <TheTabsData />
+  <router-view>
+  </router-view>
+
 </template>
 
 <script>
@@ -10,15 +11,14 @@ import charts from './components/charts.vue'
 // import tabOne from './components/tabOne.vue'
 // import tabTwo from './components/tabTwo.vue'
 import TheTabsData from '@/components/LearningResources/TheTabsData.vue';
-import TheForm from './components/TheForm.vue';
+// import TheForm from './components/TheForm.vue';
 
 export default {
   name: 'App',
   components: {
     charts,
     TheTabsData,
-    TheHeader,
-    TheForm
+    TheHeader
   }
 }
 </script>
@@ -32,8 +32,6 @@ export default {
 }
 
 .dynamicCompo {
-  margin: 50px auto;
-  border-top: 1px solid;
   border-bottom: 1px solid;
   padding: 20px;
   text-align: center;
