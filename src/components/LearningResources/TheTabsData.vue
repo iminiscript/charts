@@ -3,7 +3,10 @@
         <!-- Dynamic Component -->
         <button @click="setChangeTab('StoredData')" :class="storedDataAct">Stored Data</button>
         <button @click="setChangeTab('AddData')" :class="addNewDataAct">Add New Data</button>
-        <keep-alive>
+        <div v-if="isLoading" class="loading">
+             <img alt="Vue logo" class="logo" src="@/assets/Loading_icon.gif"  />
+        </div>
+        <keep-alive v-else>
             <component :is="changeTab"></component>
         </keep-alive>
         <button :class="{'hide': getIsCompleted}" @click="fetchData">Fetch Latest Data</button>
@@ -14,6 +17,7 @@
 import StoredData from './StoredData.vue';
 import AddData from './AddData.vue';
 
+
     export default {
         components: {
             StoredData,
@@ -21,21 +25,23 @@ import AddData from './AddData.vue';
         },
         data() {
             return {
-                changeTab: 'AddData',
+                changeTab: 'StoredData',
                 getIsCompleted: false,
+                isLoading: true,
+                error: null,
                 storedLearningData: [
-                    {
-                        id: 'yahoo',
-                        title: 'Yahoo!!',
-                        desc: 'This is Desc',
-                        link: 'https://www.yahoo.com'
-                    },
-                    {
-                        id: 'Google',
-                        title: 'Google Baba!!',
-                        desc: 'This is Desc of Google baba',
-                        link: 'https://www.Google.com'
-                    }
+                    // {
+                    //     id: 'yahoo',
+                    //     title: 'Yahoo!!',
+                    //     desc: 'This is Desc',
+                    //     link: 'https://www.yahoo.com'
+                    // },
+                    // {
+                    //     id: 'Google',
+                    //     title: 'Google Baba!!',
+                    //     desc: 'This is Desc of Google baba',
+                    //     link: 'https://www.Google.com'
+                    // }
                 ]
             }
         },
@@ -108,12 +114,18 @@ import AddData from './AddData.vue';
                     for (let i = 0; i < getData.length; i++) {
                         pushElement = getData[i];
                         console.log(pushElement)
-                        this.storedLearningData.push(pushElement);
+                        this.storedLearningData.unshift(pushElement);
                     }
                     this.getIsCompleted = true;
+                    this.isLoading = false;
                     
+                }).catch((error) => {
+                    this.error = `We're facing some technical issue, Please try again later in sometime.`
                 });
             }
+        },
+        mounted () {
+            this.fetchData();
         },
     }
 </script>
@@ -125,5 +137,11 @@ button.Active {
 }
 .hide {
     display: none !important;
+}
+
+.loading img {
+    width: 500px;
+    height: 400px;
+    max-width: 100%;
 }
 </style>
