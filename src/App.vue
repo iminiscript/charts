@@ -2,7 +2,6 @@
   <TheHeader headerTitle="VUE JS Learning" />
   <charts />
   <TheTabsData />
-  <TheForm />
 </template>
 
 <script>
