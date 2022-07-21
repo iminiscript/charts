@@ -299,7 +299,7 @@ export default {
   display: flex;
   justify-content: space-between;
   max-width: 1000px;
-  margin: auto;
+  margin: 0 auto 50px;
 
 }
 
