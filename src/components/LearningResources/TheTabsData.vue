@@ -6,6 +6,7 @@
         <keep-alive>
             <component :is="changeTab"></component>
         </keep-alive>
+        <button :class="{'hide': getIsCompleted}" @click="fetchData">Fetch Latest Data</button>
     </div>
 </template>
 
@@ -20,7 +21,8 @@ import AddData from './AddData.vue';
         },
         data() {
             return {
-                changeTab: 'StoredData',
+                changeTab: 'AddData',
+                getIsCompleted: false,
                 storedLearningData: [
                     {
                         id: 'yahoo',
@@ -64,13 +66,53 @@ import AddData from './AddData.vue';
                     desc: addDesc,
                     link: addUrl,
                 }
-                console.log(newData);
                 this.storedLearningData.unshift(newData);
                 this.changeTab = 'StoredData';
             },
             deleteData(dataId) {
                 const dataIndex = this.storedLearningData.findIndex(data => data.id === dataId );
                 this.storedLearningData.splice(dataIndex, 1);
+            },
+            fetchData() {
+                fetch('https://vueapp-local-default-rtdb.firebaseio.com/survey.json')
+                .then(
+                    (response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                    }
+                ).then((data) => {
+                    console.log(data);
+                    const getData = [];
+                    for ( const id in data) {
+                        getData.push({
+                            id: id,
+                            title: data[id].name,
+                            desc: data[id].desc,
+                            link: data[id].url
+                        })
+                    }
+                    console.log(getData);
+
+                    // const pushData = [];
+                    // for ( const id in getData) {
+                    //     pushData.push({
+                    //         id: id,
+                    //         title: getData[id].name,
+                    //         desc: getData[id].desc,
+                    //         link: getData[id].url
+                    //     })
+                    // }
+                    // console.log(getData);
+                    let pushElement;
+                    for (let i = 0; i < getData.length; i++) {
+                        pushElement = getData[i];
+                        console.log(pushElement)
+                        this.storedLearningData.push(pushElement);
+                    }
+                    this.getIsCompleted = true;
+                    
+                });
             }
         },
     }
@@ -80,5 +122,8 @@ import AddData from './AddData.vue';
 button.Active {
     background-color: transparent;
     color: black;
+}
+.hide {
+    display: none !important;
 }
 </style>

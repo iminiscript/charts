@@ -11,7 +11,7 @@
         </div>
          <div>
             <label for="url">URL</label>
-            <input type="url" id="url" ref="urlInput"/>
+            <input type="text" id="url" ref="urlInput"/>
         </div>
         <div>
             <button type="submit">Add Data</button>
@@ -62,7 +62,25 @@ export default {
                 return false;
             }
 
-            this.addDataResc(addTitle,addTitle, addUrl );
+
+                fetch('https://vueapp-local-default-rtdb.firebaseio.com/survey.json' , {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }, 
+                    body: JSON.stringify({
+                        name: addTitle, desc: addTitle , url: addUrl 
+                    }),
+                }).then(
+                    (data)=> {
+                        console.log('Sucess', data);
+                        this.addDataResc(addTitle,addTitle, addUrl );
+                        
+                    }).catch((error) => {
+                        console.log('Error', error)
+                    });
+            
+                    
         },
         closeModal() {
             this.userInputData = false;
