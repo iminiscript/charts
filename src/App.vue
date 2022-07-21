@@ -33,7 +33,7 @@ export default {
 
 .dynamicCompo {
   border-bottom: 1px solid;
-  padding: 20px;
+  margin: 100px auto;
   text-align: center;
 }
 
@@ -54,5 +54,10 @@ input {
   border: 1px solid rgb(68, 179, 105);
   border-radius: 4px;
   font-size: 16px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
 }
 </style>

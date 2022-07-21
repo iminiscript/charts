@@ -1,6 +1,8 @@
 <template>
     <header>
-        <h1>{{ headerTitle }}</h1>
+        <h1>
+            <router-link to="/">{{ headerTitle }}</router-link>
+        </h1>
         <div class="headerBottom">
             <router-link to="/">Home</router-link>
             <router-link to="/fetch-data">Fetch Data</router-link>
@@ -33,20 +35,28 @@ h1 {
     color: #ffffff;
 }
 
+h1 a {
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .headerBottom {
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 20px;
 }
 
-a {
+.headerBottom a {
     font-size: 24px;
     color: #ffffff;
     font-weight: 800;
 }
 
-a:hover,
-a.router-link-active {
+.headerBottom a:hover,
+.headerBottom a.router-link-active {
     text-decoration: none;
     color: rgb(68, 179, 105);
 }

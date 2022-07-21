@@ -31,6 +31,8 @@ import BaseWrapper from '@/components/UI/BaseWrapper.vue'
 </script>
 
 <style scoped>
-
+.LearningData {
+    padding: 50px;
+}
 
 </style>
